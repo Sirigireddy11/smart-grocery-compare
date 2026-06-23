@@ -1,24 +1,39 @@
-name: CI Bootstrap
+name: React Deployment and Selenium E2E Testing
 
-# Controls when the workflow will run
+# Step 15: Automatically triggers whenever code is pushed to main
 on:
   push:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
 
-# A workflow run is made up of one or more jobs
 jobs:
-  build:
-    # The type of runner that the job will run on
+  build-and-test:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout code
+      # Step 14: Checkout the repository code
+      - name: Checkout repository files
         uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo "Hello, Smart Grocery Compare setup is successful!"
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Step 10 & 14: Install project, Selenium, and Mocha dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 3 & 4: Build validation to make sure there are no compiler errors
+      - name: Build validation
+        run: npm run build
+
+      # Step 13 & 14: Run Selenium automated E2E tests
+      - name: Run Selenium E2E Tests
+        run: |
+          echo "Launching virtual browser and running E2E automation..."
+          # This executes your test script. Adjust if your command in package.json is 'npm run login'
+          npm test --if-present
