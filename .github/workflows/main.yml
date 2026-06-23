@@ -1,39 +1,29 @@
-name: React Deployment and Selenium E2E Testing
+name: Automated Tests
 
-# Step 15: Automatically triggers whenever code is pushed to main
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ main ]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
-
+    
     steps:
-      # Step 14: Checkout the repository code
-      - name: Checkout repository files
-        uses: actions/checkout@v4
-
-      # Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      # Step 10 & 14: Install project, Selenium, and Mocha dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 3 & 4: Build validation to make sure there are no compiler errors
-      - name: Build validation
-        run: npm run build
-
-      # Step 13 & 14: Run Selenium automated E2E tests
-      - name: Run Selenium E2E Tests
-        run: |
-          echo "Launching virtual browser and running E2E automation..."
-          # This executes your test script. Adjust if your command in package.json is 'npm run login'
-          npm test --if-present
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Build
+      run: npm run build
