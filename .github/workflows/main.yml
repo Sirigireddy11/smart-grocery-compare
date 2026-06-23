@@ -85,10 +85,13 @@ jobs:
     needs: [selenium-website, appium-android, unit-tests-api, validation-tests, deployment-status, load-testing]
     steps:
       - uses: actions/checkout@v4
-      - name: Generate Consolidated Artifacts Dashboard
+      
+      - name: Publish Deployment Link to Graph
         run: |
           echo "=========================================================="
           echo "🎉 ALL PARALLEL AUTOMATION TRACKS REPORTED GREEN!"
           echo "📊 Total Test Cases Executed: 1,800 / 1,800 Passed."
-          echo "🌐 Live Deployment Link: https://Sirigireddy11.github.io/smart-grocery-compare/"
           echo "=========================================================="
+          
+          echo "### 🌐 Live Deployment Link" >> $GITHUB_STEP_SUMMARY
+          echo "[https://Sirigireddy11.github.io/smart-grocery-compare/](https://Sirigireddy11.github.io/smart-grocery-compare/)" >> $GITHUB_STEP_SUMMARY
