@@ -124,7 +124,7 @@ jobs:
                   .search-box input { flex: 1; }
                   .search-box button { width: auto; margin: 0; background: #2e7d32; }
                   .suggestions { background: white; border: 1px solid #ccc; max-height: 150px; overflow-y: auto; position: absolute; max-width: 400px; width: calc(100% - 90px); z-index: 10; border-radius: 0 0 6px 6px; display: none; margin-top: -20px; }
-                  .suggestion-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+                  .suggestion-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f0f0; text-align: left; }
                   .suggestion-item:hover { background: #f5f5f5; }
               </style>
           </head>
@@ -162,7 +162,7 @@ jobs:
                   </div>
 
                   <div id="resultsWrapper" style="display: none;">
-                      <h3 id="currentSearchedItem" style="color: #1976D2; margin-bottom: 15px;"></h3>
+                      <h3 id="currentSearchedItem" style="color: #1976D2; margin-bottom: 15px; font-size: 16px; text-align: left;"></h3>
                       <div id="results">
                           <div class="store-card best">
                               <div>
@@ -197,7 +197,6 @@ jobs:
               </div>
 
               <script>
-                  // Global Production Database Array containing 42+ Premium Core Indian Staples
                   const catalog = [
                       { name: "Aashirvaad Shudh Chakki Atta 5kg", base: 245 },
                       { name: "Fortune Soya Health Oil 1L", base: 125 },
@@ -279,7 +278,6 @@ jobs:
                       const query = document.getElementById("itemInput").value.trim();
                       if (!query) return;
                       
-                      // Match explicit selection or compute default dynamic match index base rate
                       const match = catalog.find(i => i.name.toLowerCase().includes(query.toLowerCase()));
                       const basePrice = match ? match.base : Math.floor(Math.random() * 200) + 60;
                       const displayName = match ? match.name : query;
@@ -323,7 +321,7 @@ jobs:
           </html>' > web/build/index.html
 
           echo '{"name":"Smart Grocery India","short_name":"SmartGrocery","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#1976D2","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081840.png","sizes":"512x512","type":"image/png"}]}' > web/build/manifest.json
-          echo 'const C="g-v4";self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))逼});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});' > web/build/sw.js
+          echo 'const C="g-v5";self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))Truncate});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});' > web/build/sw.js
 
       - name: Deploy Compiled Mobile Application App Files to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
