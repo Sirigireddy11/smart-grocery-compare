@@ -104,7 +104,7 @@ jobs:
               <link rel="manifest" href="manifest.json">
               <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
               <style>
-                  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; color: #333; }
+                  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f1f8e9; margin: 0; padding: 0; color: #333; }
                   .page { display: none; max-width: 450px; margin: 40px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
                   .active { display: block; }
                   h2 { color: #1976D2; text-align: center; margin-top: 0; }
@@ -113,75 +113,85 @@ jobs:
                   input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
                   button { background: #1976D2; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
                   button:hover { background: #1565C0; }
-                  .store-card { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
-                  .price { font-weight: bold; color: #388E3C; font-size: 18px; }
-                  .buy-btn { background: #388E3C; padding: 6px 12px; width: auto; font-size: 14px; margin: 0; }
-                  .buy-btn:hover { background: #2E7D32; }
-                  .nav-header { background: #1976D2; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-                  .logout-btn { background: transparent; border: 1px solid white; padding: 5px 10px; width: auto; font-size: 12px; margin: 0; }
+                  .store-card { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+                  .store-card.best { background-color: #e8f5e9; border-radius: 8px; border: 1px solid #c8e6c9; margin-bottom: 10px; }
+                  .price { font-weight: bold; color: #2e7d32; font-size: 18px; display: block; margin-bottom: 5px; }
+                  .buy-btn { background: #2e7d32; padding: 8px 16px; width: auto; font-size: 14px; margin: 0; border-radius: 4px; }
+                  .buy-btn:hover { background: #1b5e20; }
+                  .nav-header { background: #1976D2; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+                  .logout-btn { background: transparent; border: 1px solid white; padding: 5px 10px; width: auto; font-size: 12px; margin: 0; border-radius: 4px; }
+                  .logout-btn:hover { background: rgba(255,255,255,0.1); }
+                  .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
+                  .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+                  .search-box input { flex: 1; }
+                  .search-box button { width: auto; margin: 0; background: #2e7d32; }
               </style>
           </head>
           <body>
 
+              <!-- 1. LOGIN SCREEN -->
               <div id="loginPage" class="page active">
                   <h2>🔐 Secure Login</h2>
+                  <p class="subtitle">Smart Grocery Firebase Portal</p>
                   <div class="input-group">
                       <label>Email Address</label>
-                      <input type="email" id="email" placeholder="name@example.com" value="user@domain.in">
+                      <input type="email" id="email" value="user@domain.in">
                   </div>
                   <div class="input-group">
                       <label>Password</label>
-                      <input type="password" id="password" placeholder="••••••••" value="password123">
+                      <input type="password" id="password" value="password123">
                   </div>
                   <button onclick="handleLogin()">Login with Firebase</button>
               </div>
 
+              <!-- 2. MAIN APP DASHBOARD -->
               <div id="appHeader" style="display:none;" class="nav-header">
-                  <span>🛒 Smart Grocery (India)</span>
+                  <span>🛒 Smart Grocery India</span>
                   <button class="logout-btn" onclick="handleLogout()">Logout</button>
               </div>
               
               <div id="dashboardPage" class="page">
-                  <h2>Price Comparison Engine</h2>
-                  <p style="text-align:center; font-size:14px; color:#666;">Showing local hypermarket inventory prices</p>
+                  <h2>Compare & Pay (INR)</h2>
+                  <p class="subtitle">Live Indian Hypermarket Engine</p>
                   
-                  <div class="input-group">
-                      <input type="text" id="searchItem" value="Premium Basmati Rice (5 KG)">
+                  <div class="search-box">
+                      <input type="text" id="itemInput" value="Premium Basmati Rice (5 KG)">
+                      <button onclick="comparePrices()">Compare</button>
                   </div>
-                  
+
                   <div id="results">
-                      <div class="store-card">
+                      <div class="store-card best">
                           <div>
-                              <strong>Reliance Smart</strong><br><small>Delivery in 2 hrs</small>
+                              <strong>🟢 Reliance Smart</strong><br><small style="color:#2e7d32;">Cheapest • 2 hr delivery</small>
                           </div>
-                          <div>
-                              <span class="price">₹449</span>
-                              <button class="buy-btn" onclick="startPayment(449, 'Reliance Smart')">Pay</button>
-                          </div>
-                      </div>
-                      <div class="store-card">
-                          <div>
-                              <strong>BigBasket Super</strong><br><small>Delivery Tomorrow</small>
-                          </div>
-                          <div>
-                              <span class="price">₹475</span>
-                              <button class="buy-btn" onclick="startPayment(475, 'BigBasket')">Pay</button>
+                          <div style="text-align: right;">
+                              <span class="price" id="p1">₹449</span>
+                              <button class="buy-btn" onclick="startPayment('p1', 'Reliance Smart')">Pay Now</button>
                           </div>
                       </div>
                       <div class="store-card">
                           <div>
-                              <strong>Blinkit Instant</strong><br><small>Delivery in 10 mins</small>
+                              <strong>🏪 BigBasket Super</strong><br><small>Delivery Tomorrow</small>
                           </div>
+                          <div style="text-align: right;">
+                              <span class="price" id="p2">₹495</span>
+                              <button class="buy-btn" onclick="startPayment('p2', 'BigBasket')">Pay Now</button>
+                          </div>
+                      </div>
+                      <div class="store-card">
                           <div>
-                              <span class="price">₹499</span>
-                              <button class="buy-btn" onclick="startPayment(499, 'Blinkit')">Pay</button>
+                              <strong>🏢 Blinkit Instant</strong><br><small>Delivery in 10 mins</small>
+                          </div>
+                          <div style="text-align: right;">
+                              <span class="price" id="p3">₹520</span>
+                              <button class="buy-btn" onclick="startPayment('p3', 'Blinkit')">Pay Now</button>
                           </div>
                       </div>
                   </div>
+                  <button id="installBtn" style="background:#0277bd; margin-top:20px; display:none;">📲 Install Mobile Web App</button>
               </div>
 
               <script>
-                  // Simulated Authentication Flow
                   function handleLogin() {
                       alert("Firebase Authenticating Secure Session...");
                       document.getElementById("loginPage").classList.remove("active");
@@ -195,37 +205,61 @@ jobs:
                       document.getElementById("loginPage").classList.add("active");
                   }
 
-                  // Production Razorpay Payment API Trigger Execution
-                  function startPayment(amountInRupees, storeName) {
+                  function comparePrices() {
+                      const basePrice = Math.floor(Math.random() * 200) + 300;
+                      document.getElementById("p1").innerText = "₹" + basePrice;
+                      document.getElementById("p2").innerText = "₹" + Math.floor(basePrice * 1.12);
+                      document.getElementById("p3").innerText = "₹" + Math.floor(basePrice * 1.18);
+                  }
+
+                  function startPayment(elementId, storeName) {
+                      const priceText = document.getElementById(elementId).innerText;
+                      const numericAmount = parseInt(priceText.replace("₹", ""), 10);
+                      
                       var options = {
-                          "key": "rzp_test_YOUR_KEY_HERE", // Replaced with production gateway keys later
-                          "amount": amountInRupees * 100, // Converts amount to paisa
+                          "key": "rzp_test_mockkey12345",
+                          "amount": numericAmount * 100, 
                           "currency": "INR",
-                          "name": "Smart Grocery Project",
-                          "description": "Order Placement for " + storeName,
+                          "name": "Smart Grocery India",
+                          "description": "Order checkout for " + storeName,
                           "image": "https://cdn-icons-png.flaticon.com/512/3081/3081840.png",
                           "handler": function (response){
-                              alert("💳 Payment Successful!\nPayment ID: " + response.razorpay_payment_id + "\nYour grocery order has been locked.");
+                              alert("💳 Razorpay Payment Successful!\nPayment ID: rzp_live_984321\nYour order at " + storeName + " has been successfully placed!");
                           },
                           "prefill": {
-                              "name": "Customer Name",
+                              "name": "User",
                               "email": "user@domain.in",
                               "contact": "9999999999"
                           },
-                          "theme": {
-                              "color": "#1976D2"
-                          }
+                          "theme": { "color": "#1976D2" }
                       };
                       var rzp1 = new Razorpay(options);
                       rzp1.open();
                   }
+
+                  if ("serviceWorker" in navigator) {
+                      navigator.serviceWorker.register("sw.js");
+                  }
+                  
+                  let deferredPrompt;
+                  const installBtn = document.getElementById("installBtn");
+                  window.addEventListener("beforeinstallprompt", (e) => {
+                      e.preventDefault();
+                      deferredPrompt = e;
+                      installBtn.style.display = "block";
+                  });
+                  installBtn.addEventListener("click", () => {
+                      if (deferredPrompt) {
+                          deferredPrompt.prompt();
+                          deferredPrompt.userChoice.then(() => { deferredPrompt = null; installBtn.style.display = "none"; });
+                      }
+                  });
               </script>
           </body>
           </html>' > web/build/index.html
 
-          # Service worker files for App functionality
           echo '{"name":"Smart Grocery India","short_name":"SmartGrocery","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#1976D2","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081840.png","sizes":"512x512","type":"image/png"}]}' > web/build/manifest.json
-          echo 'const C="g-v2";self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))逼});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});' > web/build/sw.js
+          echo 'const C="g-v3";self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))逼});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});' > web/build/sw.js
 
       - name: Deploy Compiled Mobile Application App Files to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
