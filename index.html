@@ -3,78 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2E7D32">
-    <title>Smart Grocery Compare</title>
+    <meta name="theme-color" content="#1976D2">
+    <title>Smart Grocery India</title>
     <link rel="manifest" href="manifest.json">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f1f8e9; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 600px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        h1 { color: #2e7d32; text-align: center; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        button { background: #2e7d32; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #1b5e20; }
-        .store-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; font-weight: 500; }
-        .store-name { display: flex; align-items: center; gap: 8px; }
-        .price { font-weight: bold; color: #2e7d32; }
-        .best { background-color: #e8f5e9; border-radius: 6px; color: #1b5e20; }
-        .install-btn { background: #0277bd; width: 100%; margin-top: 20px; display: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; color: #333; }
+        .page { display: none; max-width: 450px; margin: 40px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .active { display: block; }
+        h2 { color: #1976D2; text-align: center; margin-top: 0; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        button { background: #1976D2; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:hover { background: #1565C0; }
+        .store-card { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
+        .price { font-weight: bold; color: #388E3C; font-size: 18px; }
+        .buy-btn { background: #388E3C; padding: 6px 12px; width: auto; font-size: 14px; margin: 0; }
+        .buy-btn:hover { background: #2E7D32; }
+        .nav-header { background: #1976D2; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .logout-btn { background: transparent; border: 1px solid white; padding: 5px 10px; width: auto; font-size: 12px; margin: 0; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🛒 Smart Grocery Compare</h1>
-        <p class="subtitle">Live Web & Automation Dashboard Engine</p>
+
+    <div id="loginPage" class="page active">
+        <h2>🔐 Secure Login</h2>
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="name@example.com" value="user@domain.in">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" value="password123">
+        </div>
+        <button onclick="handleLogin()">Login with Firebase</button>
+    </div>
+
+    <div id="appHeader" style="display:none;" class="nav-header">
+        <span>🛒 Smart Grocery (India)</span>
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+    
+    <div id="dashboardPage" class="page">
+        <h2>Price Comparison Engine</h2>
+        <p style="text-align:center; font-size:14px; color:#666;">Showing local hypermarket inventory prices</p>
         
-        <div class="search-box">
-            <input type="text" id="itemInput" value="Fresh Organic Milk (1 Gallon)">
-            <button onclick="comparePrices()">Compare</button>
+        <div class="input-group">
+            <input type="text" id="searchItem" value="Premium Basmati Rice (5 KG)">
         </div>
-
+        
         <div id="results">
-            <div class="store-row best">
-                <span class="store-name">🟢 Mart-A (Lowest Price)</span>
-                <span class="price" id="p1">$3.48</span>
+            <div class="store-card">
+                <div>
+                    <strong>Reliance Smart</strong><br><small>Delivery in 2 hrs</small>
+                </div>
+                <div>
+                    <span class="price">₹449</span>
+                    <button class="buy-btn" onclick="startPayment(449, Reliance Smart)">Pay</button>
+                </div>
             </div>
-            <div class="store-row">
-                <span class="store-name">🏪 SuperFoods Basket</span>
-                <span class="price" id="p2">$3.99</span>
+            <div class="store-card">
+                <div>
+                    <strong>BigBasket Super</strong><br><small>Delivery Tomorrow</small>
+                </div>
+                <div>
+                    <span class="price">₹475</span>
+                    <button class="buy-btn" onclick="startPayment(475, BigBasket)">Pay</button>
+                </div>
             </div>
-            <div class="store-row">
-                <span class="store-name">🏢 QuickStop Premium</span>
-                <span class="price" id="p3">$4.25</span>
+            <div class="store-card">
+                <div>
+                    <strong>Blinkit Instant</strong><br><small>Delivery in 10 mins</small>
+                </div>
+                <div>
+                    <span class="price">₹499</span>
+                    <button class="buy-btn" onclick="startPayment(499, Blinkit)">Pay</button>
+                </div>
             </div>
         </div>
-
-        <button id="installBtn" class="install-btn">📲 Install to Desktop / Mobile App</button>
     </div>
 
     <script>
-        function comparePrices() {
-            const basePrice = (Math.random() * 5 + 1).toFixed(2);
-            document.getElementById("p1").innerText = "$" + basePrice;
-            document.getElementById("p2").innerText = "$" + (basePrice * 1.15).toFixed(2);
-            document.getElementById("p3").innerText = "$" + (basePrice * 1.22).toFixed(2);
+        // Simulated Authentication Flow
+        function handleLogin() {
+            alert("Firebase Authenticating Secure Session...");
+            document.getElementById("loginPage").classList.remove("active");
+            document.getElementById("appHeader").style.display = "flex";
+            document.getElementById("dashboardPage").classList.add("active");
         }
 
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js");
+        function handleLogout() {
+            document.getElementById("dashboardPage").classList.remove("active");
+            document.getElementById("appHeader").style.display = "none";
+            document.getElementById("loginPage").classList.add("active");
         }
-        
-        let deferredPrompt;
-        const installBtn = document.getElementById("installBtn");
-        window.addEventListener("beforeinstallprompt", (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.style.display = "block";
-        });
-        installBtn.addEventListener("click", () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => { deferredPrompt = null; installBtn.style.display = "none"; });
-            }
-        });
+
+        // Production Razorpay Payment API Trigger Execution
+        function startPayment(amountInRupees, storeName) {
+            var options = {
+                "key": "rzp_test_YOUR_KEY_HERE", // Replaced with production gateway keys later
+                "amount": amountInRupees * 100, // Converts amount to paisa
+                "currency": "INR",
+                "name": "Smart Grocery Project",
+                "description": "Order Placement for " + storeName,
+                "image": "https://cdn-icons-png.flaticon.com/512/3081/3081840.png",
+                "handler": function (response){
+                    alert("💳 Payment Successful!\nPayment ID: " + response.razorpay_payment_id + "\nYour grocery order has been locked.");
+                },
+                "prefill": {
+                    "name": "Customer Name",
+                    "email": "user@domain.in",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#1976D2"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
     </script>
 </body>
 </html>
