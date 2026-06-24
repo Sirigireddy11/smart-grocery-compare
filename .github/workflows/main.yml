@@ -93,7 +93,8 @@ jobs:
         run: |
           mkdir -p web/build
           
-          echo '<!DOCTYPE html>
+          cat << 'EOF' > web/build/index.html
+          <!DOCTYPE html>
           <html lang="en">
           <head>
               <meta charset="UTF-8">
@@ -201,7 +202,7 @@ jobs:
                       { name: "Aashirvaad Shudh Chakki Atta 5kg", base: 245 },
                       { name: "Fortune Soya Health Oil 1L", base: 125 },
                       { name: "Amul Taaza Fresh Milk 1L", base: 56 },
-                      { name: "India Gate Basmati Rice Rice 5kg", base: 499 },
+                      { name: "India Gate Basmati Rice 5kg", base: 499 },
                       { name: "Tata Salt Iodized 1kg", base: 28 },
                       { name: "Maggi 2-Minute Noodles 12-Pack", base: 168 },
                       { name: "Surf Excel Easy Wash 1kg", base: 140 },
@@ -239,7 +240,7 @@ jobs:
                       { name: "Saffola Oats 1kg", base: 185 },
                       { name: "Kelloggs Corn Flakes 850g", base: 360 },
                       { name: "Lizol Floor Cleaner 1L", base: 220 },
-                      { name: "Ariel Matik Top Load 2kg", base: 440 },
+                      { name: "Ariel Matic Top Load 2kg", base: 440 },
                       { name: "Whisper Ultra Clean XL 15 Pads", base: 190 },
                       { name: "Gillette Guard Razor 1 Pack", base: 25 },
                       { name: "Fresh Cauliflower (Phool Gobhi) 1pc", base: 35 }
@@ -318,10 +319,18 @@ jobs:
                   }
               </script>
           </body>
-          </html>' > web/build/index.html
+          </html>
+          EOF
 
-          echo '{"name":"Smart Grocery India","short_name":"SmartGrocery","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#1976D2","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081840.png","sizes":"512x512","type":"image/png"}]}' > web/build/manifest.json
-          echo 'const C="g-v5";self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))Truncate});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});' > web/build/sw.js
+          cat << 'EOF' > web/build/manifest.json
+          {"name":"Smart Grocery India","short_name":"SmartGrocery","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#1976D2","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3081/3081840.png","sizes":"512x512","type":"image/png"}]}
+          EOF
+
+          cat << 'EOF' > web/build/sw.js
+          const C="g-v6";
+          self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(["./","./index.html","./manifest.json"])))Truncate});
+          self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});
+          EOF
 
       - name: Deploy Compiled Mobile Application App Files to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
