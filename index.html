@@ -3,301 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compare Prices - Smart Grocery India</title>
-    <link rel="manifest" href="manifest.json">
+    <title>Compare Prices</title>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
-        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #f4f6f4; margin: 0; padding: 0; color: #333; }
-        
-        /* Green Top Header Matching Design */
-        .header { background-color: #2e7d32; color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 20px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .header-title { display: flex; align-items: center; gap: 12px; }
-        .logout-link { background: rgba(255,255,255,0.2); border: none; color: white; padding: 6px 12px; border-radius: 20px; font-size: 13px; cursor: pointer; }
-        
-        /* Main Container */
-        .container { max-width: 600px; margin: 0 auto; padding: 15px; }
-
-        /* Rounded Search Input */
-        .search-wrapper { position: relative; margin-bottom: 15px; }
-        .search-input { width: 100%; padding: 14px 20px 14px 45px; border-radius: 30px; border: 1px solid #e0e0e0; font-size: 15px; outline: none; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #757575; font-size: 18px; }
-
-        /* Horizontal Scrollable Categories Chips */
-        .categories-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; }
-        .categories-container::-webkit-scrollbar { display: none; }
-        .chip { background: #e0e0e0; color: #333; border: none; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; transition: all 0.2s ease; }
-        .chip.active { background: #2e7d32; color: white; }
-
-        /* Product Grid List */
-        .product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 80px; }
-        .product-card { background: white; border-radius: 12px; padding: 12px; border: 1px solid #eef2ee; box-shadow: 0 2px 6px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
-        .product-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: #222; }
-        .product-category { font-size: 11px; color: #757575; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
-        .product-price { font-size: 16px; font-weight: 700; color: #2e7d32; }
-        .add-btn { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .add-btn:hover { background: #2e7d32; color: white; }
-
-        /* Floating Cart & Store Comparison Drawer */
-        .cart-drawer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top-left-radius: 20px; border-top-right-radius: 20px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); padding: 15px 20px; max-width: 600px; margin: 0 auto; z-index: 200; }
-        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .drawer-title { font-weight: 700; font-size: 15px; color: #111; }
-        .store-matrix { display: flex; gap: 8px; justify-content: space-between; margin-bottom: 12px; }
-        .store-pill { flex: 1; background: #f8f9f8; border: 1px solid #e0e0e0; border-radius: 8px; padding: 8px; text-align: center; font-size: 11px; }
-        .store-pill.cheapest { background: #e8f5e9; border-color: #a5d6a7; }
-        .store-name { font-weight: bold; display: block; margin-bottom: 2px; }
-        .store-price { font-size: 14px; font-weight: 700; color: #2e7d32; }
-
-        /* Payment Checkout Button */
-        .checkout-btn { width: 100%; background: #2e7d32; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-
-        /* Payment Selector Modal */
-        .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); z-index: 300; justify-content: center; align-items: flex-end; }
-        .modal-content { background: white; width: 100%; max-width: 600px; border-top-left-radius: 20px; border-top-right-radius: 20px; padding: 20px; }
-        .payment-option { display: flex; align-items: center; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
-        .payment-option:hover { border-color: #2e7d32; background: #f4fbf4; }
-        .payment-icon { font-size: 20px; margin-right: 12px; }
-
-        /* Auth Login Screen */
-        .login-screen { max-width: 400px; margin: 60px auto; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
-        .input-field { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+        body { font-family: sans-serif; background-color: #f9fbf9; margin: 0; padding: 0; }
+        .header { background-color: #2e7d32; color: white; padding: 15px; display: flex; align-items: center; font-size: 18px; }
+        .search-box { padding: 15px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 25px; box-sizing: border-box; }
+        .filters { display: flex; gap: 10px; padding: 0 15px; overflow-x: auto; margin-bottom: 20px; }
+        .pill { padding: 8px 16px; background: #e0e0e0; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 14px; }
+        .pill.active { background: #2e7d32; color: white; }
+        .product-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: white; }
+        .cart-section { padding: 20px; background: white; margin-top: 20px; border-top: 2px solid #2e7d32; }
+        button.pay-btn { background: #2e7d32; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <!-- 1. AUTH LOGIN VIEW -->
-    <div id="loginScreen" class="login-screen">
-        <h2 style="color:#2e7d32; margin-top:0;">🔐 Login to Smart Grocery</h2>
-        <p style="color:#666; font-size:13px; margin-bottom:20px;">Access live hypermarket comparison engine</p>
-        <input type="email" class="input-field" value="user@domain.in">
-        <input type="password" class="input-field" value="password123">
-        <button class="checkout-btn" style="justify-content:center;" onclick="loginUser()">Continue to Comparison</button>
+    <div class="header">← Compare Prices</div>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Search items..." onkeyup="filterProducts()">
     </div>
-
-    <!-- 2. MAIN APP VIEW -->
-    <div id="appScreen" style="display:none;">
-        
-        <!-- Green Header Bar -->
-        <div class="header">
-            <div class="header-title">
-                <span>Compare Prices</span>
-            </div>
-            <button class="logout-link" onclick="logoutUser()">Logout</button>
-        </div>
-
-        <div class="container">
-            
-            <!-- Rounded Search Input -->
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" id="searchInput" placeholder="Search items..." onkeyup="filterProducts()">
-            </div>
-
-            <!-- Category Chips -->
-            <div class="categories-container" id="categoryContainer">
-                <button class="chip active" onclick="selectCategory('All', this)">All</button>
-                <button class="chip" onclick="selectCategory('Grains', this)">Grains</button>
-                <button class="chip" onclick="selectCategory('Dal', this)">Dal</button>
-                <button class="chip" onclick="selectCategory('Dairy', this)">Dairy</button>
-                <button class="chip" onclick="selectCategory('Vegetables', this)">Vegetables</button>
-                <button class="chip" onclick="selectCategory('Fruits', this)">Fruits</button>
-            </div>
-
-            <!-- Catalog Products Display Grid -->
-            <div class="product-list" id="productList"></div>
-
-        </div>
-
-        <!-- Floating Multi-Store Price Comparison Drawer -->
-        <div class="cart-drawer" id="cartDrawer" style="display:none;">
-            <div class="drawer-header">
-                <span class="drawer-title">Selected Items: <span id="cartCount">0</span></span>
-                <span style="font-size: 12px; color: #2e7d32; font-weight: 600;">Nearby Stores Matched</span>
-            </div>
-            
-            <div class="store-matrix">
-                <div class="store-pill cheapest">
-                    <span class="store-name">🟢 Reliance Smart</span>
-                    <span class="store-price" id="priceReliance">₹0</span>
-                </div>
-                <div class="store-pill">
-                    <span class="store-name">🏪 BigBasket</span>
-                    <span class="store-price" id="priceBigbasket">₹0</span>
-                </div>
-                <div class="store-pill">
-                    <span class="store-name">⚡ Blinkit</span>
-                    <span class="store-price" id="priceBlinkit">₹0</span>
-                </div>
-            </div>
-
-            <button class="checkout-btn" onclick="openPaymentModal()">
-                <span>Pay Lowest Total</span>
-                <span id="btnTotal">₹0 →</span>
-            </button>
-        </div>
-
+    <div class="filters" id="filterBar">
+        <div class="pill active" onclick="setFilter('All')">All</div>
+        <div class="pill" onclick="setFilter('Grains')">Grains</div>
+        <div class="pill" onclick="setFilter('Dal')">Dal</div>
+        <div class="pill" onclick="setFilter('Dairy')">Dairy</div>
+        <div class="pill" onclick="setFilter('Vegetables')">Vegetables</div>
+        <div class="pill" onclick="setFilter('Fruits')">Fruits</div>
     </div>
-
-    <!-- Payment Method Modal (UPI, Cards, NetBanking) -->
-    <div class="modal-overlay" id="paymentModal">
-        <div class="modal-content">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <h3 style="margin:0; color:#2e7d32;">Select Payment Method (INR)</h3>
-                <span style="cursor:pointer; font-weight:bold;" onclick="closePaymentModal()">✕</span>
-            </div>
-            
-            <div class="payment-option" onclick="processPayment('UPI (GPay / PhonePe / Paytm)')">
-                <span class="payment-icon">📱</span>
-                <div>
-                    <strong>UPI Payment</strong><br>
-                    <small style="color:#666;">Google Pay, PhonePe, Paytm, BHIM</small>
-                </div>
-            </div>
-
-            <div class="payment-option" onclick="processPayment('Credit / Debit Card')">
-                <span class="payment-icon">💳</span>
-                <div>
-                    <strong>Credit / Debit Card</strong><br>
-                    <small style="color:#666;">Visa, Mastercard, RuPay, Maestro</small>
-                </div>
-            </div>
-
-            <div class="payment-option" onclick="processPayment('Net Banking')">
-                <span class="payment-icon">🏦</span>
-                <div>
-                    <strong>Net Banking</strong><br>
-                    <small style="color:#666;">All Indian Banks Supported</small>
-                </div>
-            </div>
-
-            <div class="payment-option" onclick="processPayment('Cash on Delivery')">
-                <span class="payment-icon">💵</span>
-                <div>
-                    <strong>Cash on Delivery (COD)</strong><br>
-                    <small style="color:#666;">Pay at doorstep upon arrival</small>
-                </div>
-            </div>
-        </div>
+    <div id="productList"></div>
+    
+    <div class="cart-section">
+        <h3>Your Cart</h3>
+        <div id="cartItems"></div>
+        <button class="pay-btn" onclick="checkout()">Proceed to Pay (INR)</button>
     </div>
 
     <script>
-        // Catalog dataset organized by Categories
         const products = [
-            { id: 1, name: "Aashirvaad Atta 5kg", category: "Grains", price: 245 },
-            { id: 2, name: "Basmati Rice 5kg", category: "Grains", price: 499 },
-            { id: 3, name: "Saffola Gold Oil 1L", category: "Grains", price: 165 },
-            { id: 4, name: "Toor Dal 1kg", category: "Dal", price: 175 },
-            { id: 5, name: "Chana Dal 1kg", category: "Dal", price: 105 },
-            { id: 6, name: "Moong Dal 1kg", category: "Dal", price: 140 },
-            { id: 7, name: "Amul Taza Milk 1L", category: "Dairy", price: 56 },
-            { id: 8, name: "Amul Butter 500g", category: "Dairy", price: 275 },
-            { id: 9, name: "Fresh Paneer 200g", category: "Dairy", price: 90 },
-            { id: 10, name: "Red Onions 1kg", category: "Vegetables", price: 35 },
-            { id: 11, name: "Fresh Tomatoes 1kg", category: "Vegetables", price: 40 },
-            { id: 12, name: "Potatoes 1kg", category: "Vegetables", price: 30 },
-            { id: 13, name: "Bananas 1 Dozen", category: "Fruits", price: 60 },
-            { id: 14, name: "Apples 1kg", category: "Fruits", price: 180 },
-            { id: 15, name: "Fresh Oranges 1kg", category: "Fruits", price: 120 }
+            { name: "Atta", cat: "Grains", price: 245 },
+            { name: "Rice", cat: "Grains", price: 499 },
+            { name: "Toor Dal", cat: "Dal", price: 175 },
+            { name: "Milk", cat: "Dairy", price: 56 },
+            { name: "Onion", cat: "Vegetables", price: 35 },
+            { name: "Apple", cat: "Fruits", price: 150 }
         ];
-
         let cart = [];
-        let currentCat = "All";
-
-        function loginUser() {
-            document.getElementById("loginScreen").style.display = "none";
-            document.getElementById("appScreen").style.display = "block";
-            renderProducts();
-        }
-
-        function logoutUser() {
-            document.getElementById("appScreen").style.display = "none";
-            document.getElementById("loginScreen").style.display = "block";
-            cart = [];
-            updateCartUI();
-        }
-
-        function selectCategory(category, element) {
-            currentCat = category;
-            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-            renderProducts();
-        }
-
-        function filterProducts() {
-            renderProducts();
-        }
-
-        function renderProducts() {
-            const searchVal = document.getElementById("searchInput").value.toLowerCase();
-            const container = document.getElementById("productList");
-            
-            const filtered = products.filter(p => {
-                const matchesCat = (currentCat === "All" || p.category === currentCat);
-                const matchesSearch = p.name.toLowerCase().includes(searchVal);
-                return matchesCat && matchesSearch;
-            });
-
-            container.innerHTML = filtered.map(p => `
-                <div class="product-card">
-                    <div>
-                        <div class="product-category">${p.category}</div>
-                        <div class="product-name">${p.name}</div>
-                    </div>
-                    <div class="product-footer">
-                        <span class="product-price">₹${p.price}</span>
-                        <button class="add-btn" onclick="addToCart(${p.id})">+</button>
-                    </div>
+        function render(list) {
+            const container = document.getElementById('productList');
+            container.innerHTML = list.map(p => `
+                <div class="product-item">
+                    <span>${p.name} - ₹${p.price}</span>
+                    <button onclick="addToCart('${p.name}', ${p.price})">Add</button>
                 </div>
             `).join('');
         }
-
-        function addToCart(productId) {
-            const item = products.find(p => p.id === productId);
-            cart.push(item);
-            updateCartUI();
+        function addToCart(name, price) {
+            cart.push({name, price});
+            document.getElementById('cartItems').innerHTML = cart.map(i => `<div>${i.name}: ₹${i.price}</div>`).join('');
         }
-
-        function updateCartUI() {
-            const drawer = document.getElementById("cartDrawer");
-            if (cart.length === 0) {
-                drawer.style.display = "none";
-                return;
-            }
-
-            drawer.style.display = "block";
-            document.getElementById("cartCount").innerText = cart.length;
-
-            const baseTotal = cart.reduce((sum, item) => sum + item.price, 0);
-            const relianceTotal = baseTotal;
-            const bigbasketTotal = Math.floor(baseTotal * 1.07);
-            const blinkitTotal = Math.floor(baseTotal * 1.12);
-
-            document.getElementById("priceReliance").innerText = "₹" + relianceTotal;
-            document.getElementById("priceBigbasket").innerText = "₹" + bigbasketTotal;
-            document.getElementById("priceBlinkit").innerText = "₹" + blinkitTotal;
-            document.getElementById("btnTotal").innerText = "₹" + relianceTotal + " →";
+        function setFilter(cat) {
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            event.target.classList.add('active');
+            const filtered = cat === 'All' ? products : products.filter(p => p.cat === cat);
+            render(filtered);
         }
-
-        function openPaymentModal() {
-            document.getElementById("paymentModal").style.display = "flex";
+        function checkout() {
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            var options = {
+                "key": "rzp_test_mockkey12345",
+                "amount": total * 100,
+                "currency": "INR",
+                "name": "Smart Grocery",
+                "handler": function(res){ alert("Payment Success!"); }
+            };
+            new Razorpay(options).open();
         }
-
-        function closePaymentModal() {
-            document.getElementById("paymentModal").style.display = "none";
-        }
-
-        function processPayment(method) {
-            const baseTotal = cart.reduce((sum, item) => sum + item.price, 0);
-            alert("🎉 Order Success!\nPayment Method: " + method + "\nTotal Paid: ₹" + baseTotal + "\nYour basket has been processed at Reliance Smart!");
-            closePaymentModal();
-            cart = [];
-            updateCartUI();
-        }
-
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js");
-        }
+        render(products);
     </script>
 </body>
 </html>
