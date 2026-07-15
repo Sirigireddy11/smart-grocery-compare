@@ -153,7 +153,7 @@ jobs:
           path: master-sheet/Master_Automation_Test_Cases_Sheet.txt
           retention-days: 90
 
-      - name: Inject Expanded App (50+ Products, Snacks, Mobile UI, UPI & Card Payment)
+      - name: Inject Expanded App (70+ Real-World Products, Mobile Grid UI, UPI & Card Payment)
         run: |
           mkdir -p web/build
           
@@ -163,7 +163,7 @@ jobs:
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Compare Prices</title>
+              <title>Compare Prices - Blinkit vs BigBasket</title>
               <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
               <style>
                   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f8f5; margin: 0; padding: 0; color: #333; }
@@ -240,6 +240,8 @@ jobs:
                       <div class="pill" onclick="updateCategory('Snacks')">Snacks</div>
                       <div class="pill" onclick="updateCategory('Vegetables')">Vegetables</div>
                       <div class="pill" onclick="updateCategory('Fruits')">Fruits</div>
+                      <div class="pill" onclick="updateCategory('Oil & Spices')">Oil & Spices</div>
+                      <div class="pill" onclick="updateCategory('Personal Care')">Personal Care</div>
                   </div>
 
                   <div class="products-grid" id="productsOutput"></div>
@@ -277,77 +279,100 @@ jobs:
               <script>
                   const completeGroceryCatalog = [
                       // Grains Category (10 items)
-                      { name: "Aashirvaad Atta 5kg", category: "Grains", price: 245 },
-                      { name: "Basmati Rice 5kg", category: "Grains", price: 499 },
-                      { name: "Saffola Gold Oil 1L", category: "Grains", price: 165 },
-                      { name: "Fortune Mustard Oil 1L", category: "Grains", price: 145 },
-                      { name: "Suji (Semolina) 1kg", category: "Grains", price: 58 },
-                      { name: "Maida (Flour) 1kg", category: "Grains", price: 48 },
-                      { name: "Poha (Flattened Rice) 1kg", category: "Grains", price: 62 },
-                      { name: "India Gate Dubar Rice 5kg", category: "Grains", price: 380 },
-                      { name: "Fortune Sunflower Oil 1L", category: "Grains", price: 135 },
-                      { name: "Organic Brown Rice 1kg", category: "Grains", price: 110 },
+                      { name: "Aashirvaad Shudh Chakki Atta 5kg", category: "Grains", price: 245 },
+                      { name: "Daawat Rozana Super Basmati Rice 5kg", category: "Grains", price: 380 },
+                      { name: "Rajdhani Sooji / Rava 1kg", category: "Grains", price: 58 },
+                      { name: "Fortune Maida Premium Flour 1kg", category: "Grains", price: 48 },
+                      { name: "Tata Sampann Thick Poha 1kg", category: "Grains", price: 62 },
+                      { name: "India Gate Dubar Basmati Rice 5kg", category: "Grains", price: 499 },
+                      { name: "Organic Tattva Brown Rice 1kg", category: "Grains", price: 110 },
+                      { name: "Rajdhani Besan 1kg", category: "Grains", price: 90 },
+                      { name: "Bambino Roasted Vermicelli 500g", category: "Grains", price: 45 },
+                      { name: "Organic Amaranth Flour 1kg", category: "Grains", price: 140 },
 
                       // Dal Category (10 items)
-                      { name: "Toor Dal 1kg", category: "Dal", price: 175 },
-                      { name: "Chana Dal 1kg", category: "Dal", price: 105 },
-                      { name: "Moong Dal 1kg", category: "Dal", price: 140 },
-                      { name: "Urad Dal White 1kg", category: "Dal", price: 155 },
-                      { name: "Masoor Dal Red 1kg", category: "Dal", price: 95 },
-                      { name: "Kabuli Chana White 1kg", category: "Dal", price: 130 },
-                      { name: "Rajma Red Kidney Beans 1kg", category: "Dal", price: 148 },
-                      { name: "Kala Chana 1kg", category: "Dal", price: 88 },
-                      { name: "Moong Chilka Dal 1kg", category: "Dal", price: 135 },
-                      { name: "Green Vatana Peas 1kg", category: "Dal", price: 92 },
+                      { name: "Tata Sampann Toor Dal 1kg", category: "Dal", price: 175 },
+                      { name: "Tata Sampann Unpolished Chana Dal 1kg", category: "Dal", price: 105 },
+                      { name: "Fortune Moong Dal 1kg", category: "Dal", price: 140 },
+                      { name: "Tata Sampann Urad Dal White split 1kg", category: "Dal", price: 155 },
+                      { name: "Catch Masoor Dal Red split 1kg", category: "Dal", price: 95 },
+                      { name: "Fortune Kabuli Chana White 1kg", category: "Dal", price: 130 },
+                      { name: "Catch Rajma Red Kidney Beans 1kg", category: "Dal", price: 148 },
+                      { name: "Organic Tattva Kala Chana 1kg", category: "Dal", price: 88 },
+                      { name: "Tata Sampann Moong Chilka Dal 1kg", category: "Dal", price: 135 },
+                      { name: "Organic Green Vatana Peas 1kg", category: "Dal", price: 92 },
 
                       // Dairy Category (10 items)
-                      { name: "Amul Taza Milk 1L", category: "Dairy", price: 56 },
-                      { name: "Amul Butter 500g", category: "Dairy", price: 275 },
-                      { name: "Fresh Paneer 200g", category: "Dairy", price: 90 },
-                      { name: "Mother Dairy Dahi 400g", category: "Dairy", price: 35 },
-                      { name: "Amul Cheese Slices 200g", category: "Dairy", price: 150 },
-                      { name: "Amul Taaza Milk 500ml", category: "Dairy", price: 28 },
-                      { name: "Nandini Fresh Curd 1kg", category: "Dairy", price: 72 },
-                      { name: "Amul Ghee Cans 1L", category: "Dairy", price: 680 },
-                      { name: "Britannia Cheese Blocks 200g", category: "Dairy", price: 140 },
-                      { name: "Amul Fresh Cream 250ml", category: "Dairy", price: 65 },
+                      { name: "Amul Taaza Toned Milk 1L", category: "Dairy", price: 56 },
+                      { name: "Amul Salted Butter 500g", category: "Dairy", price: 275 },
+                      { name: "Amul Fresh Paneer Block 200g", category: "Dairy", price: 90 },
+                      { name: "Mother Dairy Ultimate Dahi 400g", category: "Dairy", price: 35 },
+                      { name: "Amul Processed Cheese Slices 200g", category: "Dairy", price: 150 },
+                      { name: "Nandini Fresh Curd Packet 1kg", category: "Dairy", price: 72 },
+                      { name: "Amul Cow Ghee Carton 1L", category: "Dairy", price: 680 },
+                      { name: "Britannia Cheese Cubes 200g", category: "Dairy", price: 140 },
+                      { name: "Amul Fresh Low Fat Cream 250ml", category: "Dairy", price: 65 },
+                      { name: "Epigamia Greek Yogurt Strawberry 90g", category: "Dairy", price: 45 },
 
                       // Snacks Category (10 items)
-                      { name: "Haldiram's Alu Bhujia 150g", category: "Snacks", price: 55 },
+                      { name: "Haldiram's Alu Bhujia Namkeen 150g", category: "Snacks", price: 55 },
                       { name: "Kurkure Masala Munch 90g", category: "Snacks", price: 30 },
-                      { name: "Lays Classic Salted 50g", category: "Snacks", price: 20 },
-                      { name: "Maggi 2-Min Noodles 280g", category: "Snacks", price: 48 },
-                      { name: "Cadbury Dairy Milk Silk 150g", category: "Snacks", price: 105 },
-                      { name: "Oreo Vanilla Biscuits 120g", category: "Snacks", price: 35 },
-                      { name: "Hide & Seek Choco Chip 120g", category: "Snacks", price: 50 },
-                      { name: "Britannia Good Day Butter 200g", category: "Snacks", price: 40 },
-                      { name: "Act II Golden Sizzle Popcorn 60g", category: "Snacks", price: 25 },
-                      { name: "Haldiram's Soan Papdi 250g", category: "Snacks", price: 90 },
+                      { name: "Lays Classic Salted Potato Chips 50g", category: "Snacks", price: 20 },
+                      { name: "Maggi 2-Min Masala Noodles 280g", category: "Snacks", price: 48 },
+                      { name: "Cadbury Dairy Milk Silk Chocolate 150g", category: "Snacks", price: 105 },
+                      { name: "Oreo Vanilla Creme Biscuit 120g", category: "Snacks", price: 35 },
+                      { name: "Parle Hide & Seek Choco Chip 120g", category: "Snacks", price: 50 },
+                      { name: "Britannia Good Day Butter Cookies 200g", category: "Snacks", price: 40 },
+                      { name: "Act II Golden Sizzle Microwave Popcorn 60g", category: "Snacks", price: 25 },
+                      { name: "Haldiram's Soan Papdi Festive Pack 250g", category: "Snacks", price: 90 },
 
-                      // Vegetables Category (11 items)
-                      { name: "Red Onions 1kg", category: "Vegetables", price: 35 },
-                      { name: "Fresh Tomatoes 1kg", category: "Vegetables", price: 40 },
-                      { name: "Potatoes 1kg", category: "Vegetables", price: 30 },
-                      { name: "Green Chilli 250g", category: "Vegetables", price: 20 },
-                      { name: "Fresh Ginger (Adrak) 250g", category: "Vegetables", price: 45 },
-                      { name: "Fresh Garlic 250g", category: "Vegetables", price: 60 },
-                      { name: "Fresh Cauliflower 1pc", category: "Vegetables", price: 35 },
-                      { name: "Fresh Lemon Bunch 250g", category: "Vegetables", price: 50 },
-                      { name: "Green Capsicum 500g", category: "Vegetables", price: 42 },
-                      { name: "Ladies Finger (Bhindi) 500g", category: "Vegetables", price: 28 },
-                      { name: "Fresh Coriander Leaves Bunch", category: "Vegetables", price: 15 },
+                      // Vegetables Category (10 items)
+                      { name: "Fresh Local Red Onions 1kg", category: "Vegetables", price: 35 },
+                      { name: "Fresh Hybrid Tomatoes 1kg", category: "Vegetables", price: 40 },
+                      { name: "Fresh Jyoti Potatoes 1kg", category: "Vegetables", price: 30 },
+                      { name: "Spicy Green Chillies 250g", category: "Vegetables", price: 20 },
+                      { name: "Fresh Hill Ginger (Adrak) 250g", category: "Vegetables", price: 45 },
+                      { name: "Fresh Garlic Bulbs 250g", category: "Vegetables", price: 60 },
+                      { name: "Fresh Cauliflower Medium 1pc", category: "Vegetables", price: 35 },
+                      { name: "Juicy Yellow Lemons Pack of 4", category: "Vegetables", price: 25 },
+                      { name: "Fresh Green Capsicum 500g", category: "Vegetables", price: 42 },
+                      { name: "Local Ladies Finger (Bhindi) 500g", category: "Vegetables", price: 28 },
 
                       // Fruits Category (10 items)
-                      { name: "Bananas 1 Dozen", category: "Fruits", price: 60 },
-                      { name: "Apples 1kg", category: "Fruits", price: 180 },
-                      { name: "Fresh Oranges 1kg", category: "Fruits", price: 120 },
-                      { name: "Pomegranate (Anar) 1kg", category: "Fruits", price: 195 },
-                      { name: "Green Papaya Medium 1pc", category: "Fruits", price: 45 },
-                      { name: "Watermelon Black 1pc", category: "Fruits", price: 70 },
-                      { name: "Fresh Kiwis Pack of 3", category: "Fruits", price: 99 },
-                      { name: "Grapes Seedless Black 500g", category: "Fruits", price: 85 },
-                      { name: "Fresh Sweet Lime 1kg", category: "Fruits", price: 110 },
-                      { name: "Alphonso Mangoes 1 Dozen", category: "Fruits", price: 650 }
+                      { name: "Fresh Bananas Robusta 1 Dozen", category: "Fruits", price: 60 },
+                      { name: "Fresh Royal Gala Apples 1kg", category: "Fruits", price: 180 },
+                      { name: "Fresh Nagpur Oranges 1kg", category: "Fruits", price: 120 },
+                      { name: "Kabul Pomegranate (Anar) 1kg", category: "Fruits", price: 195 },
+                      { name: "Semi-Ripe Green Papaya 1pc", category: "Fruits", price: 45 },
+                      { name: "Fresh Black Seedless Watermelon 1pc", category: "Fruits", price: 70 },
+                      { name: "Zespri Fresh Kiwis Pack of 3", category: "Fruits", price: 99 },
+                      { name: "Black Seedless Grapes 500g", category: "Fruits", price: 85 },
+                      { name: "Fresh Sweet Lime (Mosambi) 1kg", category: "Fruits", price: 110 },
+                      { name: "Fresh Alphonso Mangoes 1 Dozen", category: "Fruits", price: 650 },
+
+                      // Oil & Spices Category (10 items)
+                      { name: "Saffola Gold Pro-Health Cooking Oil 1L", category: "Oil & Spices", price: 165 },
+                      { name: "Fortune Premium Kachi Ghani Mustard Oil 1L", category: "Oil & Spices", price: 145 },
+                      { name: "Fortune Refined Sunflower Oil 1L", category: "Oil & Spices", price: 135 },
+                      { name: "Tata Sampann Turmeric Powder (Haldi) 200g", category: "Oil & Spices", price: 65 },
+                      { name: "Catch Red Chili Powder (Lal Mirch) 200g", category: "Oil & Spices", price: 85 },
+                      { name: "MDH Kitchen King Garam Masala 100g", category: "Oil & Spices", price: 92 },
+                      { name: "Catch Whole Black Pepper (Kali Mirch) 100g", category: "Oil & Spices", price: 110 },
+                      { name: "Everest Sabji Masala Blend 100g", category: "Oil & Spices", price: 60 },
+                      { name: "Tata Salt Iodized Premium 1kg", category: "Oil & Spices", price: 28 },
+                      { name: "Catch Whole Cumin Seeds (Jeera) 100g", category: "Oil & Spices", price: 75 },
+
+                      // Personal Care Category (10 items)
+                      { name: "Dettol Liquid Handwash Original Refill 175ml", category: "Personal Care", price: 99 },
+                      { name: "Colgate MaxFresh Red Gel Toothpaste 150g", category: "Personal Care", price: 112 },
+                      { name: "Sunsilk Black Shine Shampoo 300ml", category: "Personal Care", price: 210 },
+                      { name: "Dettol Bathing Soap Bar 125g Pack of 3", category: "Personal Care", price: 165 },
+                      { name: "Nivea Body Wash Shower Gel 250ml", category: "Personal Care", price: 199 },
+                      { name: "Pears Pure & Gentle Soap 125g", category: "Personal Care", price: 78 },
+                      { name: "Head & Shoulders Cool Menthol Shampoo 180ml", category: "Personal Care", price: 180 },
+                      { name: "Himalaya Purifying Neem Face Wash 100ml", category: "Personal Care", price: 140 },
+                      { name: "Gillette Classic Sensitive Shaving Foam 200ml", category: "Personal Care", price: 195 },
+                      { name: "Parachute Advanced 100% Pure Coconut Oil 250ml", category: "Personal Care", price: 98 }
                   ];
 
                   let currentSelectedCategory = "All";
@@ -448,7 +473,7 @@ jobs:
                       try {
                           const payOptions = {
                               "key": "rzp_test_realCheckoutMode", 
-                              "amount": amountINR * 100, // Razorpay works in Paisa
+                              "amount": amountINR * 100, // Razorpay Paisa conversion
                               "currency": "INR",
                               "name": "Smart Grocery India",
                               "description": "Store Order Checkout: " + merchantName,
