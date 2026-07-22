@@ -22,6 +22,105 @@ void main() async {
   runApp(const GroceryApp());
 }
 
+List<Map<String, dynamic>> getDemoGroceries() {
+  return [
+    {'Name': 'Basmati Rice', 'category': 'Grains', 'balayya': 56, 'sai RAM': 52, 'medium Bazzer': 58},
+    {'Name': 'Toor Dal', 'category': 'Dal', 'balayya': 110, 'sai RAM': 104, 'medium Bazzer': 118},
+    {'Name': 'Urad Dal', 'category': 'Dal', 'balayya': 115, 'sai RAM': 108, 'medium Bazzer': 120},
+    {'Name': 'Moong Dal', 'category': 'Dal', 'balayya': 102, 'sai RAM': 99, 'medium Bazzer': 106},
+    {'Name': 'Chana Dal', 'category': 'Dal', 'balayya': 98, 'sai RAM': 95, 'medium Bazzer': 100},
+    {'Name': 'Whole Wheat Flour', 'category': 'Grains', 'balayya': 42, 'sai RAM': 39, 'medium Bazzer': 45},
+    {'Name': 'Maida', 'category': 'Grains', 'balayya': 48, 'sai RAM': 46, 'medium Bazzer': 49},
+    {'Name': 'Semolina', 'category': 'Grains', 'balayya': 38, 'sai RAM': 36, 'medium Bazzer': 40},
+    {'Name': 'Oats', 'category': 'Grains', 'balayya': 90, 'sai RAM': 88, 'medium Bazzer': 92},
+    {'Name': 'Milk', 'category': 'Dairy', 'balayya': 58, 'sai RAM': 60, 'medium Bazzer': 55},
+    {'Name': 'Curd', 'category': 'Dairy', 'balayya': 42, 'sai RAM': 40, 'medium Bazzer': 44},
+    {'Name': 'Butter', 'category': 'Dairy', 'balayya': 72, 'sai RAM': 70, 'medium Bazzer': 74},
+    {'Name': 'Paneer', 'category': 'Dairy', 'balayya': 120, 'sai RAM': 118, 'medium Bazzer': 124},
+    {'Name': 'Cheese', 'category': 'Dairy', 'balayya': 140, 'sai RAM': 138, 'medium Bazzer': 145},
+    {'Name': 'Tomato', 'category': 'Vegetables', 'balayya': 40, 'sai RAM': 38, 'medium Bazzer': 42},
+    {'Name': 'Onion', 'category': 'Vegetables', 'balayya': 30, 'sai RAM': 28, 'medium Bazzer': 32},
+    {'Name': 'Potato', 'category': 'Vegetables', 'balayya': 35, 'sai RAM': 33, 'medium Bazzer': 36},
+    {'Name': 'Carrot', 'category': 'Vegetables', 'balayya': 32, 'sai RAM': 30, 'medium Bazzer': 34},
+    {'Name': 'Beans', 'category': 'Vegetables', 'balayya': 45, 'sai RAM': 43, 'medium Bazzer': 47},
+    {'Name': 'Cauliflower', 'category': 'Vegetables', 'balayya': 36, 'sai RAM': 35, 'medium Bazzer': 37},
+    {'Name': 'Cabbage', 'category': 'Vegetables', 'balayya': 28, 'sai RAM': 27, 'medium Bazzer': 29},
+    {'Name': 'Apple', 'category': 'Fruits', 'balayya': 180, 'sai RAM': 175, 'medium Bazzer': 190},
+    {'Name': 'Banana', 'category': 'Fruits', 'balayya': 55, 'sai RAM': 52, 'medium Bazzer': 58},
+    {'Name': 'Orange', 'category': 'Fruits', 'balayya': 80, 'sai RAM': 78, 'medium Bazzer': 84},
+    {'Name': 'Grapes', 'category': 'Fruits', 'balayya': 95, 'sai RAM': 90, 'medium Bazzer': 99},
+    {'Name': 'Mango', 'category': 'Fruits', 'balayya': 140, 'sai RAM': 136, 'medium Bazzer': 145},
+    {'Name': 'Pineapple', 'category': 'Fruits', 'balayya': 110, 'sai RAM': 108, 'medium Bazzer': 112},
+    {'Name': 'Watermelon', 'category': 'Fruits', 'balayya': 70, 'sai RAM': 68, 'medium Bazzer': 72},
+    {'Name': 'Sunflower Oil', 'category': 'Oil & Spices', 'balayya': 160, 'sai RAM': 155, 'medium Bazzer': 165},
+    {'Name': 'Mustard Oil', 'category': 'Oil & Spices', 'balayya': 170, 'sai RAM': 168, 'medium Bazzer': 174},
+    {'Name': 'Coconut Oil', 'category': 'Oil & Spices', 'balayya': 180, 'sai RAM': 176, 'medium Bazzer': 185},
+    {'Name': 'Turmeric', 'category': 'Oil & Spices', 'balayya': 55, 'sai RAM': 52, 'medium Bazzer': 58},
+    {'Name': 'Red Chilli Powder', 'category': 'Oil & Spices', 'balayya': 65, 'sai RAM': 62, 'medium Bazzer': 68},
+    {'Name': 'Coriander Powder', 'category': 'Oil & Spices', 'balayya': 60, 'sai RAM': 58, 'medium Bazzer': 63},
+    {'Name': 'Salt', 'category': 'Oil & Spices', 'balayya': 22, 'sai RAM': 20, 'medium Bazzer': 24},
+    {'Name': 'Tea', 'category': 'Snacks', 'balayya': 210, 'sai RAM': 205, 'medium Bazzer': 215},
+    {'Name': 'Coffee', 'category': 'Snacks', 'balayya': 240, 'sai RAM': 235, 'medium Bazzer': 245},
+    {'Name': 'Biscuits', 'category': 'Snacks', 'balayya': 40, 'sai RAM': 38, 'medium Bazzer': 42},
+    {'Name': 'Chips', 'category': 'Snacks', 'balayya': 30, 'sai RAM': 28, 'medium Bazzer': 32},
+    {'Name': 'Namkeen', 'category': 'Snacks', 'balayya': 45, 'sai RAM': 43, 'medium Bazzer': 47},
+    {'Name': 'Soap', 'category': 'Personal Care', 'balayya': 45, 'sai RAM': 43, 'medium Bazzer': 48},
+    {'Name': 'Shampoo', 'category': 'Personal Care', 'balayya': 180, 'sai RAM': 175, 'medium Bazzer': 188},
+    {'Name': 'Toothpaste', 'category': 'Personal Care', 'balayya': 85, 'sai RAM': 82, 'medium Bazzer': 89},
+    {'Name': 'Conditioner', 'category': 'Personal Care', 'balayya': 160, 'sai RAM': 155, 'medium Bazzer': 165},
+    {'Name': 'Detergent Powder', 'category': 'Personal Care', 'balayya': 120, 'sai RAM': 116, 'medium Bazzer': 125},
+    {'Name': 'Hand Wash', 'category': 'Personal Care', 'balayya': 70, 'sai RAM': 68, 'medium Bazzer': 72},
+    {'Name': 'Bread', 'category': 'Grains', 'balayya': 36, 'sai RAM': 34, 'medium Bazzer': 38},
+    {'Name': 'Pasta', 'category': 'Grains', 'balayya': 60, 'sai RAM': 58, 'medium Bazzer': 62},
+    {'Name': 'Noodles', 'category': 'Grains', 'balayya': 48, 'sai RAM': 46, 'medium Bazzer': 50},
+    {'Name': 'Cornflakes', 'category': 'Grains', 'balayya': 92, 'sai RAM': 89, 'medium Bazzer': 95},
+    {'Name': 'Brown Rice', 'category': 'Grains', 'balayya': 74, 'sai RAM': 70, 'medium Bazzer': 76},
+    {'Name': 'Black Gram', 'category': 'Dal', 'balayya': 118, 'sai RAM': 112, 'medium Bazzer': 122},
+    {'Name': 'Green Gram', 'category': 'Dal', 'balayya': 108, 'sai RAM': 104, 'medium Bazzer': 110},
+    {'Name': 'Masoor Dal', 'category': 'Dal', 'balayya': 105, 'sai RAM': 101, 'medium Bazzer': 107},
+    {'Name': 'Peanut Butter', 'category': 'Dairy', 'balayya': 160, 'sai RAM': 155, 'medium Bazzer': 164},
+    {'Name': 'Ghee', 'category': 'Dairy', 'balayya': 620, 'sai RAM': 610, 'medium Bazzer': 635},
+    {'Name': 'Yogurt', 'category': 'Dairy', 'balayya': 44, 'sai RAM': 42, 'medium Bazzer': 46},
+    {'Name': 'Cucumber', 'category': 'Vegetables', 'balayya': 24, 'sai RAM': 22, 'medium Bazzer': 26},
+    {'Name': 'Spinach', 'category': 'Vegetables', 'balayya': 26, 'sai RAM': 24, 'medium Bazzer': 28},
+    {'Name': 'Brinjal', 'category': 'Vegetables', 'balayya': 34, 'sai RAM': 32, 'medium Bazzer': 36},
+    {'Name': 'Lady Finger', 'category': 'Vegetables', 'balayya': 38, 'sai RAM': 36, 'medium Bazzer': 40},
+    {'Name': 'Capsicum', 'category': 'Vegetables', 'balayya': 42, 'sai RAM': 40, 'medium Bazzer': 44},
+    {'Name': 'Ginger', 'category': 'Vegetables', 'balayya': 28, 'sai RAM': 26, 'medium Bazzer': 30},
+    {'Name': 'Garlic', 'category': 'Vegetables', 'balayya': 25, 'sai RAM': 24, 'medium Bazzer': 27},
+    {'Name': 'Lemon', 'category': 'Fruits', 'balayya': 30, 'sai RAM': 28, 'medium Bazzer': 32},
+    {'Name': 'Papaya', 'category': 'Fruits', 'balayya': 60, 'sai RAM': 58, 'medium Bazzer': 62},
+    {'Name': 'Guava', 'category': 'Fruits', 'balayya': 70, 'sai RAM': 68, 'medium Bazzer': 72},
+    {'Name': 'Pomegranate', 'category': 'Fruits', 'balayya': 150, 'sai RAM': 146, 'medium Bazzer': 154},
+    {'Name': 'Kiwi', 'category': 'Fruits', 'balayya': 110, 'sai RAM': 108, 'medium Bazzer': 112},
+    {'Name': 'Avocado', 'category': 'Fruits', 'balayya': 180, 'sai RAM': 176, 'medium Bazzer': 184},
+    {'Name': 'Coconut', 'category': 'Fruits', 'balayya': 50, 'sai RAM': 48, 'medium Bazzer': 52},
+    {'Name': 'Groundnut Oil', 'category': 'Oil & Spices', 'balayya': 185, 'sai RAM': 180, 'medium Bazzer': 188},
+    {'Name': 'Pepper', 'category': 'Oil & Spices', 'balayya': 90, 'sai RAM': 88, 'medium Bazzer': 92},
+    {'Name': 'Cumin Seeds', 'category': 'Oil & Spices', 'balayya': 80, 'sai RAM': 78, 'medium Bazzer': 82},
+    {'Name': 'Cardamom', 'category': 'Oil & Spices', 'balayya': 320, 'sai RAM': 315, 'medium Bazzer': 325},
+    {'Name': 'Clove', 'category': 'Oil & Spices', 'balayya': 180, 'sai RAM': 176, 'medium Bazzer': 184},
+    {'Name': 'Sambar Powder', 'category': 'Oil & Spices', 'balayya': 70, 'sai RAM': 68, 'medium Bazzer': 72},
+    {'Name': 'Pickles', 'category': 'Snacks', 'balayya': 40, 'sai RAM': 38, 'medium Bazzer': 42},
+    {'Name': 'Chocolate', 'category': 'Snacks', 'balayya': 80, 'sai RAM': 78, 'medium Bazzer': 82},
+    {'Name': 'Soda', 'category': 'Snacks', 'balayya': 40, 'sai RAM': 38, 'medium Bazzer': 42},
+    {'Name': 'Juice', 'category': 'Snacks', 'balayya': 95, 'sai RAM': 92, 'medium Bazzer': 98},
+    {'Name': 'Mouthwash', 'category': 'Personal Care', 'balayya': 90, 'sai RAM': 88, 'medium Bazzer': 92},
+    {'Name': 'Razors', 'category': 'Personal Care', 'balayya': 70, 'sai RAM': 68, 'medium Bazzer': 72},
+    {'Name': 'Tissues', 'category': 'Personal Care', 'balayya': 35, 'sai RAM': 34, 'medium Bazzer': 36},
+    {'Name': 'Sanitizer', 'category': 'Personal Care', 'balayya': 95, 'sai RAM': 92, 'medium Bazzer': 98},
+  ];
+}
+
+List<Map<String, dynamic>> getGroceryItemsFromSnapshot(QuerySnapshot? snapshot) {
+  if (snapshot != null && snapshot.docs.isNotEmpty) {
+    return snapshot.docs
+        .map((doc) => Map<String, dynamic>.from(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+  return getDemoGroceries();
+}
+
 class GroceryApp extends StatelessWidget {
   const GroceryApp({super.key});
   @override
@@ -66,24 +165,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> signInWithGoogle() async {
     setState(() => isLoading = true);
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser == null) { setState(() => isLoading = false); return; }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (e) {
-      setState(() => isLoading = false);
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign in failed: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (!mounted) return;
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
   }
 
   @override
@@ -290,55 +377,67 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text('Today\'s Best Deals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  const Text('Today\'s Best Deals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Text('75+ items', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 8),
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('groceries').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-                final items = snapshot.data!.docs;
-                return SizedBox(
-                  height: 140,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      final data = items[index].data() as Map<String, dynamic>;
+                final items = getGroceryItemsFromSnapshot(snapshot.data);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: items.take(8).map((data) {
                       final balayya = (data['balayya'] ?? 0) as int;
                       final saiRam = (data['sai RAM'] ?? 0) as int;
                       final mediumBazzer = (data['medium Bazzer'] ?? 0) as int;
                       final minPrice = [balayya, saiRam, mediumBazzer].reduce((a, b) => a < b ? a : b);
                       final minStore = balayya == minPrice ? 'Balayya' : saiRam == minPrice ? 'Sai RAM' : 'Medium Bazzer';
                       return Container(
-                        width: 140,
-                        margin: const EdgeInsets.only(right: 12),
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 10),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 8)],
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
                           children: [
-                            Text(data['Name'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                            const SizedBox(height: 6),
-                            Text('Best: Rs.$minPrice', style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
-                            Text('at $minStore', style: const TextStyle(color: Colors.grey, fontSize: 11)),
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(8)),
-                              child: const Text('View Deal', style: TextStyle(color: Colors.green, fontSize: 11)),
+                            CircleAvatar(
+                              backgroundColor: Colors.green.shade100,
+                              child: const Icon(Icons.local_offer, color: Colors.green),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(data['Name'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                                  const SizedBox(height: 4),
+                                  Text('Best: Rs.$minPrice at $minStore', style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       );
-                    },
+                    }).toList(),
                   ),
                 );
               },
@@ -437,9 +536,7 @@ class _CompareScreenState extends State<CompareScreen> {
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('groceries').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-                final items = snapshot.data!.docs.where((doc) {
-                  final data = doc.data() as Map<String, dynamic>;
+                final items = getGroceryItemsFromSnapshot(snapshot.data).where((data) {
                   final name = (data['Name'] ?? '').toString().toLowerCase();
                   final matchSearch = searchQuery.isEmpty || name.contains(searchQuery.toLowerCase());
                   final matchCategory = selectedCategory.isEmpty || (data['category'] ?? '') == selectedCategory;
@@ -462,7 +559,7 @@ class _CompareScreenState extends State<CompareScreen> {
                   padding: const EdgeInsets.all(12),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    final data = items[index].data() as Map<String, dynamic>;
+                    final data = items[index];
                     final balayya = (data['balayya'] ?? 0) as int;
                     final saiRam = (data['sai RAM'] ?? 0) as int;
                     final mediumBazzer = (data['medium Bazzer'] ?? 0) as int;
